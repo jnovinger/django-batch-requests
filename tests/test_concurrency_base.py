@@ -3,11 +3,12 @@
 
 @summary: Contains base test case for concurrency related tests.
 '''
-import json
-from datetime import datetime
+from __future__ import absolute_import, unicode_literals
 
-from tests.test_base import TestBase
+import json
+
 from batch_requests.settings import br_settings as _settings
+from tests.test_base import TestBase
 
 
 class TestBaseConcurrency(TestBase):

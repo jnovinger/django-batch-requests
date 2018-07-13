@@ -10,6 +10,7 @@ import logging
 from datetime import datetime
 
 import six
+from concurrent.futures import TimeoutError
 from django.conf import settings
 from django.http.response import (
     HttpResponse,
@@ -17,13 +18,11 @@ from django.http.response import (
     HttpResponseNotFound,
     HttpResponseServerError,
 )
-from django.template.response import ContentNotRenderedError
 from django.urls import resolve
 from django.urls.exceptions import Resolver404
 from django.views.decorators.csrf import csrf_exempt
 from django.views.decorators.http import require_http_methods
 
-from batch_requests.concurrent.executor import TimeoutError
 from batch_requests.exceptions import BadBatchRequest
 from batch_requests.settings import br_settings as _settings
 from batch_requests.utils import get_wsgi_request_object
@@ -121,7 +120,7 @@ def get_response(wsgi_request):
     d_resp = {
         "status_code": resp.status_code,
         "reason_phrase": handle_sub_reason_phrase(resp),
-        "headers": {k:v for k, v in six.itervalues(resp._headers)},
+        "headers": {k: v for k, v in six.itervalues(resp._headers)},
         "body": handle_sub_response_body(resp),
     }
 
