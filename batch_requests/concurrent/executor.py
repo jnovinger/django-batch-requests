@@ -39,7 +39,6 @@ class Executor(object):
         pool = self.get_executor_pool()
         timeout = self.timeout
         return [
-            # future.result() for future in [
             result_handler(future, timeout) for future in [
                 pool.submit(resp_generator, req, *args, **kwargs)
                 for req in requests
